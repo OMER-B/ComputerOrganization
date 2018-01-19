@@ -1,0 +1,6 @@
+ex	manual	automatic	final
+1	100	100		100
+2	100	100		100
+3	100	90		95
+4	30	70		100
+5	TBA	TBA		TBA

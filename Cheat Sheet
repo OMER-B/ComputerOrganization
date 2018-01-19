@@ -1,0 +1,114 @@
+
+Arg		|Operand Size (bits)
+No.		|64	32	16	8
+1 caller	|%rdi	%edi	%di	%dil
+2 caller	|%rsi	%esi	%si	%sil
+3 caller	|%rdx	%edx	%dx	%dl
+4 caller	|%rcx	%ecx	%c	%cl
+5 caller	|%r8	%r8d	%r8w	%r8b
+6 caller	|%r9	%r9d	%r9w	%r9b
+----------------|---------------------------
+ret val		|%rax	%eax	%ax	%al
+		|%rbx	%ebx	%bx	%bl
+stack pointer	|%rsp	%esp	%sp	%spl
+base pointer	|%rbp	%ebp	%bp	%bpl
+temp		|%r10	%r10d	%r10w	%r10b
+temp		|%r11	%r11d	%r11w	%r11b
+callee saved	|%r12	%r12d	%r12w	%r12b
+callee saved	|%r13	%r13d	%r13w	%r13b
+callee saved	|%r14	%r14d	%r14w	%r14b
+callee saved	|%r15	%r15d	%r15w	%r15b
+
+-	-	-	-	-	-	-	-	-	-	-
+
+Operand Specifiers
+Imm	constant value (0x8048d83, 48...)
+Ex	register (%rax, %rdx...)
+R[Ex]	value stored in register Ex
+M[x]	value stored at memory address x
+
+-	-	-	-	-	-	-	-	-	-	-
+
+x64 Instructions
+"byte"		one-byte integer (suffix b)
+"word"		two-byte integer (suffix w)
+"doubleword"	four-byte integer (suffix l)
+"quadword"	eight-byte integer (suffix q)
+
+-	-	-	-	-	-	-	-	-	-	-
+
+Data Movement
+mov	S, D	Move S to D
+push	S	Push S to stack
+pop	D	Pop top of stack to D
+-------------------------------------
+mov	S, D	Move byte to word
+push	S	Move byte to word
+-------------------------------------
+cwtl		Convert word in %ax to doubleword in %eax
+cltq		Convert doubleword in %eax to quadword in %rax
+cqto		Convert quadword in %rax to octoword in %rxd:%rax
+
+-	-	-	-	-	-	-	-	-	-	-
+
+Arithmetic Operations
+inc	D	Increment by 1
+dec	D	Decrement by 1
+neg	D	Arithmetic negation
+not	D	Bitwise complement
+leaq	S, D	Load effective address of S to D (like ampersand)
+add	S, D	Add S to D
+sub	S, D	Subtract S from D
+imul	S, D	Multiply D by S
+xor	S, D	Bitwise XOR D by S
+or	S, D	Bitwise OR D by S
+and	S, D	Bitwise AND D by S
+
+-	-	-	-	-	-	-	-	-	-	-
+
+Comparison
+cmp	S1, S2	Set condition codes according to (S2 - S1)
+test	S1, S2	Set condition codes according to (S2 & S1)
+
+-	-	-	-	-	-	-	-	-	-	-
+
+Conditions
+sete	D	Set if equal/zero
+setne	D	Set if not equal/nonzero
+sets	D	Set if negative
+setns	D	Set if nonnegative
+setg	D	Set if greater			signed
+setge	D	Set if greater or equal		signed
+setl	D	Set if less			signed
+setle	D	Set if less or equal		signed
+seta	D	Set if above			unsigned
+setae	D	Set if above or equal		unsigned
+setb	D	Set if below			unsigned
+setbe	D	Set if below or equal		unsigned
+
+-	-	-	-	-	-	-	-	-	-	-
+
+Jump Instructions
+jmp	Label	Jump to label
+jmp	*Op	Jump to specified location
+je	Label	Jump if equal/zero
+jne	Label	Jump if not equal/nonzero
+js	Label	Jump if negative
+jns	Label	Jump if nonnegative
+jg	Label	Jump if greater			signed
+jge	Label	Jump if greater or equal	signed
+jl	Label	Jump if less			signed
+jle	Label	Jump if less or equal		signed
+ja	Label	Jump if above			unsigned
+jae	Label	Jump if above or equal		unsigned
+jb	Label	Jump if below			unsigned
+jbe	Label	Jump if below or equal		unsigned
+
+-	-	-	-	-	-	-	-	-	-	-
+
+Call Instructions
+call	Label	Push return address and jump to label
+call	*Op	Push return address and jump to specified location
+leave		Set %rsp to %rbp, then pop top of stack into %rbp
+ret		Pop return address from stack and jump there
+
